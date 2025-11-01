@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL Score Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2193b0, #6dd5ed);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            max-width: 400px;
+            margin: 60px auto 0 auto;
+            padding: 40px 30px 30px 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+            text-align: center;
+        }
+        h2 {
+            color: #1976d2;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        label {
+            text-align: left;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #b0bec5;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="number"]:focus {
+            border-color: #1976d2;
+        }
+        input[type="submit"] {
+            background: linear-gradient(90deg, #1976d2 70%, #21cbf3 100%);
+            color: white;
+            border: none;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+            transition: background 0.2s;
+        }
+        input[type="submit"]:hover {
+            background: linear-gradient(90deg, #21cbf3 70%, #1976d2 100%);
+        }
+        .result {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            color: #388e3c;
+            font-weight: bold;
+            padding: 14px 0;
+            background: #e3fcef;
+            border-radius: 8px;
+            border: 1px solid #b2f2e5;
+            box-shadow: 0 1px 4px rgba(56, 142, 60, 0.07);
+        }
+        @media (max-width: 500px) {
+            .container {
+                max-width: 98vw;
+                margin: 20px 2vw 0 2vw;
+                padding: 18px 6vw 24px 6vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>IPL Score Prediction</h2>
+        <form action="/predict" method="post">
+            <div>
+                <label for="runs">Runs Scored</label>
+                <input type="number" name="runs" id="runs" min="0" required>
+            </div>
+            <div>
+                <label for="wickets">Wickets Fallen</label>
+                <input type="number" name="wickets" id="wickets" min="0" max="10" required>
+            </div>
+            <div>
+                <label for="overs">Overs Completed</label>
+                <input type="number" name="overs" id="overs" step="0.1" min="0" max="20" required>
+            </div>
+            <div>
+                <label for="runs_last_5">Runs in Last 5 Overs</label>
+                <input type="number" name="runs_last_5" id="runs_last_5" min="0" required>
+            </div>
+            <div>
+                <label for="wickets_last_5">Wickets in Last 5 Overs</label>
+                <input type="number" name="wickets_last_5" id="wickets_last_5" min="0" max="10" required>
+            </div>
+            <input type="submit" value="Predict Score">
+        </form>
+        {% if prediction_text %}
+        <div class="result">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
