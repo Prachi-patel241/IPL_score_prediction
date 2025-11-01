@@ -3,8 +3,10 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-with open("ipl_score_model.pkl", "rb") as f:
-    model = pickle.load(f)
+MODEL_PATH = '/home/prachipatel19/IPL_score_prediction/IPL_score_prediction/ipl_score_model.pkl'
+import os
+
+ipl_score_model = pickle.load(open(MODEL_PATH, 'rb'))
 
 @app.route("/")
 def home():
@@ -24,5 +26,3 @@ def predict():
     except Exception as e:
         return render_template("index.html", prediction_text=f"Error: {e}")
 
-if __name__ == "__main__":
-    app.run(debug=True)
